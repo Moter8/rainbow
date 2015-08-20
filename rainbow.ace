@@ -10,4 +10,4 @@ html lang=en
   body
     .youre
       .awesome
-        h1.rainbow You're Awesome {{.Url}}!
+        h1.rainbow {{.Message}} {{if .Url}}{{.Url}}{{else}}Moter8{{end}}!

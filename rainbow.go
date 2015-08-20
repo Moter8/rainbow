@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
+	"time"
 
 	"github.com/yosssi/ace"
 )
@@ -15,11 +17,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	templateErr := tpl.Execute(w, map[string]string{"Url": r.URL.Path[1:]})
+	rand.Seed(time.Now().UnixNano())
+	messages := []string{"You are awesome,", "Pure awesomeness", "Coolest person alive:", "Literally Awesome:", "The amazing"}
+	selectedMessage := messages[rand.Intn(len(messages))]
+
+	templateErr := tpl.Execute(w, map[string]string{"Message": selectedMessage, "Url": r.URL.Path[1:]})
 	if templateErr != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	} else {
-		fmt.Println("Serving " + r.URL.Path[1:] + " for " + r.RemoteAddr)
+		fmt.Println("Serving " + selectedMessage + " " + r.URL.Path[1:] + " for " + r.RemoteAddr)
 	}
 }
 
