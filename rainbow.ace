@@ -11,3 +11,4 @@ html lang=en
     .youre
       .awesome
         h1.rainbow {{.Message}} {{if .Url}}{{.Url}}{{else}}Moter8{{end}}!
+        h2.rainbow Amazingness counter: {{.Counter}}
